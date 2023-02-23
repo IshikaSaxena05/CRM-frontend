@@ -6,19 +6,18 @@ import "./App.css";
 import HomePage from "./components/HomePage";
 import Login from "./components/Authentication/Login";
 import ForgetPassword from "./components/Authentication/ForgetPassword";
-import Register from "./components/Authentication/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NotFound from "./components/NotFound/NotFound";
 import Spinner from "./components/Spinner/Spinner";
 
 const Dashboard = lazy(() => import("./components/Dashboard/Dashboard"));
-const Users = lazy(() => import("./components/Users/Users"));
 const Leads = lazy(() => import("./components/Leads/Leads"));
 const CreateLead = lazy(() => import("./components/Leads/CreateLead"));
 const EditLead = lazy(() => import("./components/Leads/EditLead"));
 const Contacts = lazy(() => import("./components/Contacts/Contacts"));
 const CreateContact = lazy(() => import("./components/Contacts/CreateContact"));
 const EditContact = lazy(() => import("./components/Contacts/EditContact"));
+const Employees = lazy(() => import("./components/Employees/EmployeesList"));
 const ServiceRequests = lazy(() =>
   import("./components/ServiceRequests/ServiceRequests")
 );
@@ -45,7 +44,6 @@ const App = (props) => {
           )}
         </Route>
         <Route path="/login" component={Login} exact />
-        <Route path="/register" component={Register} exact />
         <Route path="/forget-password" component={ForgetPassword} exact />
 
         <Route path="/dashboard" exact>
@@ -55,7 +53,7 @@ const App = (props) => {
         </Route>
         <Route path="/employees" exact>
           <Suspense fallback={Spinner}>
-            <Users />
+            <Employees />
           </Suspense>
         </Route>
         <Route path="/tasks" exact>

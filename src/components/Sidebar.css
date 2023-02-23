@@ -3,6 +3,7 @@
   height: 100vh;
   margin-left: -250px;
   transition: all 0.3s;
+  background: gray;
 }
 
 #sidebar.active {
@@ -12,4 +13,7 @@
 #sidebar li:hover {
   background: gray;
   border-radius: 100px;
+}
+.nav-link{
+  display: flex;
 }

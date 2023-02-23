@@ -2,15 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import {Typography} from "@mui/material"
 import "./Sidebar.css";
-
+import logo from '../assets/logo.jpg'
 function Sidebar() {
   return (
-    <div id="sidebar" className="d-flex flex-column p-3 text-white bg-success">
+    <div id="sidebar" className="d-flex flex-column p-3 text-white">
       <Link to="/" className="nav-link text-white">
-        <div style={{ width: "50px", height: "50px", bgcolor: "red", marginLeft: "10px" }}>
-          <img alt="profilelogo" style={{ width: "100%", borderRadius: "25px" }} ></img>
+        <div style={{ width: "60px", height: "60px", bgcolor: "red"}}>
+          <img alt="profilelogo" style={{ width: "100%", borderRadius: "25px" }} src={logo}></img>
         </div>
-        <Typography sx={{ lineHeight: "24px", ml: "20px", fontWeight: "600", fontSize: "24px", pt: "40px", pb: "40px" }}>
+        <Typography sx={{ lineHeight: "24px",fontWeight: "600", fontSize: "20px",pl:2 }}>
           Satguru technologies
         </Typography>
       </Link>
