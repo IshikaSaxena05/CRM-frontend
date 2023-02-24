@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -10,6 +10,7 @@ import "./Login.css";
 import HomeNav from "../HomeNav";
 import Footer from "../Footer";
 import TextError from "./TextError";
+import { Typography } from "@mui/material";
 
 // const SERVER_URL = "https://sridharrajaram-crmapp.herokuapp.com";
 const SERVER_URL = "http://localhost:5000";
@@ -18,8 +19,8 @@ const server = axios.create({
   baseURL: SERVER_URL,
 });
 
-function Login() {
-  const history = useHistory();
+const Login=() =>{
+  const navigate = useNavigate();
 
   const style = {
     textDecoration: "none",
@@ -41,7 +42,7 @@ function Login() {
       localStorage.setItem("user", response.data.user);
       localStorage.setItem("token", response.data.token);
       cogoToast.success("Login Successful!");
-      history.push("/dashboard");
+      navigate("/dashboard");
     } catch (error) {
       cogoToast.error(error.response.data.message);
       console.log(error);
@@ -152,6 +153,9 @@ function Login() {
       </main>
       <Footer />
     </>
+    // <Typography>
+    //   Hii
+    // </Typography>
   );
 }
 

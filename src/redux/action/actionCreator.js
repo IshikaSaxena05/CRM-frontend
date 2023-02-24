@@ -1,0 +1,2 @@
+export const LOGIN_ADMIN = "LOGIN_ADMIN";
+export const EDIT_VIEW_CARDLIST = "EDIT_VIEW_CARDLIST";

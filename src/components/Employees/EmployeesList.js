@@ -75,28 +75,26 @@ export default function Employees() {
   }, [])
 
   return (
-    <main className="d-flex m-0">
-      <Sidebar />
-      <div className="container-fluid d-flex flex-column">
-        <UserNav />
+    <>
+    {/* <main className="d-flex m-0"> */}
+      <div className=" d-flex flex-column">
         <Typography sx={{
             width: "100%",
             display: 'flex',
             justifyContent: "center",
             fontSize: "30px",
             fontWeight: 700,
-            pt: 2
           }}>
             Employees
           </Typography>
         <Box sx={{
           display:'flex',
           justifyContent:'space-evenly',
-          flexWrap:'wrap'
+            flexWrap:'wrap'
         }}>
          
           {employee.map((data) => (
-            <Card sx={{ width: '22%',ml:2,mt:4 }}>
+            <Card sx={{ width: '23%',ml:2,mt:4 }}>
               <Box sx={{
                 display:'flex',
                 justifyContent:'center'
@@ -124,6 +122,7 @@ export default function Employees() {
 
         </Box>
       </div>
-    </main>
+    {/* </main> */}
+    </>
   );
 }

@@ -1,5 +1,6 @@
 .footer {
   width: 100%;
+  background-color: gray;
 }
 
 @media (min-width: 576px) {

@@ -1,10 +1,12 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Navigate, Routes } from "react-router-dom";
 
 function ProtectedRoute({ component: Component, ...rest }) {
   const isAuth = localStorage.getItem("token") ? true : false;
 
   return (
+    <>
+    <Routes>
     <Route
       {...rest}
       render={(props) => {
@@ -12,13 +14,15 @@ function ProtectedRoute({ component: Component, ...rest }) {
           return <Component />;
         } else {
           return (
-            <Redirect
+            <Navigate
               to={{ pathname: "/login", state: { from: props.location } }}
             />
           );
         }
       }}
     />
+    </Routes>
+    </>
   );
 }
 

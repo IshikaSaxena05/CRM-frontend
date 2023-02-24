@@ -10,7 +10,7 @@ import { Box } from "@mui/system";
 
 function Dashboard() {
   const [user, setUser] = useState("");
-  const server = useAxiosInstance();
+  // const server = useAxiosInstance();
   const [greet,setGreet] = useState("")
   useEffect(() => {
     const request = axios.CancelToken.source();
@@ -30,11 +30,9 @@ function Dashboard() {
   }, []);
  
   return (
+    <>
     <main className="d-flex m-0">
-      <Sidebar />
       <div className="container-fluid d-flex flex-column px-4">
-        <UserNav />
-        <h4 className="my-4">Dashboard</h4>
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
           <Typography sx={{
             width: "100%",
@@ -146,6 +144,7 @@ function Dashboard() {
         </div>
       </div>
     </main>
+    </>
   );
 }
 
