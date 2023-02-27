@@ -1,52 +1,3 @@
-// import React from "react";
-// import { Link } from "react-router-dom";
-// import { Typography } from "@mui/material"
-// import "./Sidebar.css";
-// import logo from '../assets/logo.jpg'
-// function Sidebar() {
-//   return (
-//     <div id="sidebar" className="d-flex flex-column p-3 text-white">
-//       <Link to="/" className="nav-link text-white">
-//         <div style={{ width: "60px", height: "60px", bgcolor: "red" }}>
-//           <img alt="profilelogo" style={{ width: "100%", borderRadius: "25px" }} src={logo}></img>
-//         </div>
-//         <Typography sx={{ lineHeight: "24px", fontWeight: "600", fontSize: "20px", pl: 2 }}>
-//           Satguru technologies
-//         </Typography>
-//       </Link>
-//       <ul className="nav nav-pills flex-column mb-auto">
-//         <li>
-//           <Link to="/dashboard" className="nav-link text-white">
-//             Dashboard
-//           </Link>
-//         </li>
-//         <li>
-//           <Link to="/employees" className="nav-link text-white">
-//             Employees
-//           </Link>
-//         </li>
-//         <li>
-//           <Link to="/tasks" className="nav-link text-white">
-//             Tasks
-//           </Link>
-//         </li>
-//         <li>
-//           <Link to="/ongoingprojects" className="nav-link text-white">
-//             OnGoing Projects
-//           </Link>
-//         </li>
-//         <li>
-//           <Link to="/logout" className="nav-link text-white">
-//             Closed Projects
-//           </Link>
-//         </li>
-//       </ul>
-//     </div>
-//   );
-// }
-
-// export default Sidebar;
-
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import * as React from "react";
@@ -60,18 +11,23 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { drawerData } from "./Config/Mockdata";
-import { Link, useLocation,useNavigate } from "react-router-dom";
-import { Typography } from "@mui/material";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Divider, Typography } from "@mui/material";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import GroupsIcon from "@mui/icons-material/Groups";
+import TaskIcon from "@mui/icons-material/Task";
+import FormatListNumberedRtlIcon from "@mui/icons-material/FormatListNumberedRtl";
+import PlaylistAddCheckIcon from "@mui/icons-material/PlaylistAddCheck";
 import cogoToast from "cogo-toast";
-import logo from '../assets/logo.jpg'
+import logo from "../assets/logo.jpg";
 import RoutesIndex from "../components/Routes";
 let drawerWidth = 240;
 
 const Sidebar = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const location = useLocation();
   const [data, setData] = React.useState(drawerData);
-  const [user, setUser] = React.useState("")
+  const [user, setUser] = React.useState("");
 
   function onLogout() {
     localStorage.removeItem("token");
@@ -82,17 +38,15 @@ const Sidebar = () => {
   let URL = location.pathname;
 
   React.useEffect(() => {
-    setUser(localStorage.getItem("user"))
-     const trimmedURL = URL.slice(0, 6);
+    setUser(localStorage.getItem("user"));
+    const trimmedURL = URL.slice(0, 6);
     data.map((item, index) => {
       let trimmedRoute = item.Routes.slice(0, 6);
-      trimmedURL === trimmedRoute
-        ? (item.isActive = true)
-        : (item.isActive = false);
+      trimmedURL === trimmedRoute ? (item.isActive = true) : (item.isActive = false);
     });
     setData([...data]);
-  }, []);
- 
+  }, [location.pathname]);
+
   const redirect = (redirect) => {
     if (redirect) {
       navigate(redirect);
@@ -111,18 +65,10 @@ const Sidebar = () => {
     <Box sx={{ width: "100%" }}>
       <Box sx={{ width: "100%" }}>
         <CssBaseline />
-        <AppBar
-          position="fixed"
-          sx={{ bgcolor: "#ffffff", display: "flex", alignItems: "flex-end" }}
-        >
+        <AppBar position="fixed" sx={{ bgcolor: "whitesmoke", display: "flex", alignItems: "flex-end", pt: "30px" }}>
           <nav className="nav navbar-light d-flex justify-content-between align-items-center py-2">
             <div className="dropdown">
-              <section
-                className="nav-link dropdown-toggle"
-                id="navbarDropdown"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
+              <section className="nav-link dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                 {`Welcome, ${user} `}
               </section>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -143,29 +89,29 @@ const Sidebar = () => {
             "& .MuiDrawer-paper": {
               width: drawerWidth,
               boxSizing: "border-box",
-              bgcolor: "gray",
+              bgcolor: "#1f6abf",
             },
             ml: "auto",
             mr: "auto",
           }}
           variant="permanent"
-          anchor="left"
-        >
+          anchor="left">
           <Box
             sx={{
-              pt: 5,
-              p: 2,
-            }}
-          >
-            <Link to="/" className="nav-link text-white">
-              <div style={{ width: "60px", height: "60px", bgcolor: "red" }}>
-                <img alt="profilelogo" style={{ width: "100%", borderRadius: "25px" }} src={logo}></img>
+              pt: 1,
+              // p: 2,
+              display: "flex",
+            }}>
+            <Link to="/" style={{ display: "flex", textDecoration: "none", padding: "10px" }}>
+              <div style={{ width: "60px", height: "60px" }}>
+                <img alt="profilelogo" style={{ width: "100%" }} src={logo}></img>
               </div>
-              <Typography sx={{ lineHeight: "24px", fontWeight: "600", fontSize: "20px", pl: 2 }}>
+              <Typography sx={{ lineHeight: "24px", fontWeight: "600", fontSize: "26px", pl: 2, color: "white" }}>
                 Satguru technologies
               </Typography>
             </Link>
           </Box>
+          <Divider />
 
           <List
             sx={{
@@ -181,23 +127,40 @@ const Sidebar = () => {
                 },
               },
               p: "8px",
-            }}
-          >
+            }}>
             {data.map((text, index) => (
               <ListItem
                 sx={{
-                  color: text.isActive ? "#3D2E57" : "white",
+                  color: text.isActive ? "#000000" : "white",
                   bgcolor: text.isActive ? "white" : "",
                   borderRadius: "5px",
                   mt: "10px",
                 }}
                 key={index}
-                disablePadding
-              >
+                disablePadding>
                 <ListItemButton onClick={() => redirect(text.Routes)}>
+                  <ListItemIcon
+                    sx={{
+                      color: text.isActive ? "#000000" : "white",
+                      maxWidth: "22px",
+                      minWidth: "22px",
+                      mr: "30px",
+                    }}>
+                    {index === 0 ? (
+                      <DashboardIcon sx={{ height: "3em", width: "2em" }} />
+                    ) : index === 1 ? (
+                      <GroupsIcon sx={{ height: "3em", width: "2em" }} />
+                    ) : index === 2 ? (
+                      <TaskIcon sx={{ height: "3em", width: "2em" }} />
+                    ) : index === 3 ? (
+                      <FormatListNumberedRtlIcon sx={{ height: "3em", width: "2em" }} />
+                    ) : (
+                      <PlaylistAddCheckIcon sx={{ height: "3em", width: "2em" }} />
+                    )}
+                  </ListItemIcon>
                   <ListItemText
                     sx={{
-                      fontWeight: "400",
+                      fontWeight: "700",
                       fontSize: "18px",
                       display: { xs: "none", sm: "flex" },
                     }}
@@ -217,16 +180,14 @@ const Sidebar = () => {
             pr: { xs: "8px", lg: "20px" },
             ml: "auto",
             bgcolor: "white",
-          }}
-        >
+          }}>
           <Box
             sx={{
               pt: 2,
               pl: { xs: 1, lg: 3 },
               pr: { xs: 1, lg: 5 },
               borderRadius: 2,
-            }}
-          >
+            }}>
             <RoutesIndex />
           </Box>
         </Box>

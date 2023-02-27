@@ -11,139 +11,152 @@ import { Box } from "@mui/system";
 function Dashboard() {
   const [user, setUser] = useState("");
   // const server = useAxiosInstance();
-  const [greet,setGreet] = useState("")
+  const [greet, setGreet] = useState("");
   useEffect(() => {
     const request = axios.CancelToken.source();
-    setUser(localStorage.getItem("user"))
-    var today = new Date()
-    var curHr = today.getHours()
+    setUser(localStorage.getItem("user"));
+    var today = new Date();
+    var curHr = today.getHours();
     if (curHr < 12) {
-      setGreet('Good Morning')
+      setGreet("Good Morning");
     } else if (curHr < 16) {
-      setGreet('Good Afternoon')
+      setGreet("Good Afternoon");
     } else {
-      setGreet('Good Evening')
+      setGreet("Good Evening");
     }
     return () => {
       request.cancel();
     };
   }, []);
- 
+
   return (
     <>
-    <main className="d-flex m-0">
-      <div className="container-fluid d-flex flex-column px-4">
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
-          <Typography sx={{
-            width: "100%",
-            display: 'flex',
-            justifyContent: "center",
-            fontSize: "30px",
-            fontWeight: 700,
-            pt: 2
-          }}>{greet},</Typography>
-          <Typography sx={{
-            width: "100%",
-            display: 'flex',
-            justifyContent: "center",
-            fontSize: "20px",
-            fontWeight: 400,
-          }}>
-            {user}
-          </Typography>
-          <Box sx={{
-            display:'flex',
-            justifyContent:'space-between',
-            width:'100%'
-          }}>
-          <Card variant="outlined" sx={{
-            border:'2px solid black',
-            width:'48%'
-          }}>
-            <CardContent>
-              <Typography sx={{ fontSize: 30 }} color="text.secondary" gutterBottom>
-                Today's Tasks
-              </Typography>
-              <Typography variant="h5" component="div">
-
-              </Typography>
-              <Box sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'space-between',
+      <main className="d-flex m-0">
+        <div className="container-fluid d-flex flex-column px-4">
+          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+            <Typography
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                fontSize: "30px",
+                fontWeight: 700,
+                pt: 2,
               }}>
-                {tasks.map((work) => (
-                  <Card variant="outlined" sx={{
-                    bgcolor: 'black',
-                    color: 'white',
-                    mb:2
-                  }}>
-                    <CardContent>
-                      <Typography sx={{
-                        fontSize: 14,
-                        color: 'white'
-                      }} color="text.secondary" gutterBottom>
-                        {work.title}
-                      </Typography>
-                      <ul>
-                        {work.tasks.map((task) => (
-                          <li>{task.name}</li>
-                        ))}
-                      </ul>
-
-                    </CardContent>
-                  </Card>
-                ))
-                }
-              </Box>
-            </CardContent>
-          </Card>
-          <Card variant="outlined" sx={{
-            border:'2px solid black',
-            width:'48%'
-          }}>
-            <CardContent>
-              <Typography sx={{ fontSize: 30 }} color="text.secondary" gutterBottom>
-                Notifications
-              </Typography>
-              <Typography variant="h5" component="div">
-
-              </Typography>
-              <Box sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'space-between',
+              {greet},
+            </Typography>
+            <Typography
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                fontSize: "20px",
+                fontWeight: 400,
               }}>
-                {tasks.map((work) => (
-                  <Card variant="outlined" sx={{
-                    bgcolor: 'black',
-                    color: 'white',
-                    mb:2
-                  }}>
-                    <CardContent>
-                      <Typography sx={{
-                        fontSize: 14,
-                        color: 'white'
-                      }} color="text.secondary" gutterBottom>
-                        {work.title}
-                      </Typography>
-                      <ul>
-                        {work.tasks.map((task) => (
-                          <li>{task.name}</li>
-                        ))}
-                      </ul>
-
-                    </CardContent>
-                  </Card>
-                ))
-                }
-              </Box>
-            </CardContent>
-          </Card>
-          </Box>
+              {user}
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "100%",
+              }}>
+              <Card
+                variant="outlined"
+                sx={{
+                  border: "2px solid black",
+                  width: "48%",
+                }}>
+                <CardContent>
+                  <Typography sx={{ fontSize: 30 }} color="text.secondary" gutterBottom>
+                    Today's Tasks
+                  </Typography>
+                  <Typography variant="h5" component="div"></Typography>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "space-between",
+                    }}>
+                    {tasks.map((work) => (
+                      <Card
+                        variant="outlined"
+                        sx={{
+                          bgcolor: "#1f6abf",
+                          color: "white",
+                          mb: 2,
+                        }}>
+                        <CardContent>
+                          <Typography
+                            sx={{
+                              fontSize: 14,
+                              color: "white",
+                            }}
+                            color="text.secondary"
+                            gutterBottom>
+                            {work.title}
+                          </Typography>
+                          <ul>
+                            {work.tasks.map((task) => (
+                              <li>{task.name}</li>
+                            ))}
+                          </ul>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </Box>
+                </CardContent>
+              </Card>
+              <Card
+                variant="outlined"
+                sx={{
+                  border: "2px solid black",
+                  width: "48%",
+                }}>
+                <CardContent>
+                  <Typography sx={{ fontSize: 30 }} color="text.secondary" gutterBottom>
+                    Notifications
+                  </Typography>
+                  <Typography variant="h5" component="div"></Typography>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "space-between",
+                    }}>
+                    {tasks.map((work) => (
+                      <Card
+                        variant="outlined"
+                        sx={{
+                          bgcolor: "#1f6abf",
+                          color: "white",
+                          mb: 2,
+                        }}>
+                        <CardContent>
+                          <Typography
+                            sx={{
+                              fontSize: 14,
+                              color: "white",
+                            }}
+                            color="text.secondary"
+                            gutterBottom>
+                            {work.title}
+                          </Typography>
+                          <ul>
+                            {work.tasks.map((task) => (
+                              <li>{task.name}</li>
+                            ))}
+                          </ul>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </Box>
+                </CardContent>
+              </Card>
+            </Box>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
     </>
   );
 }
@@ -154,19 +167,11 @@ const tasks = [
   {
     title: "Gopher",
     status: "pending",
-    tasks: [
-      { name: "Complete Setup" },
-      { name: "Complete Connections" }
-    ]
-
+    tasks: [{ name: "Complete Setup" }, { name: "Complete Connections" }],
   },
   {
     title: "CRM",
     status: "pending",
-    tasks: [
-      { name: "Complete Setup" },
-      { name: "Complete Connections" }
-    ]
-
-  }
-]
+    tasks: [{ name: "Complete Setup" }, { name: "Complete Connections" }],
+  },
+];
