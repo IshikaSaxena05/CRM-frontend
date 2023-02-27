@@ -96,8 +96,15 @@ const Sidebar = () => {
   const redirect = (redirect) => {
     if (redirect) {
       navigate(redirect);
-      console.log(redirect);
-    } else {
+      const trimmedURL = URL.slice(0, 6);
+      data.map((item, index) => {
+        let trimmedRoute = item.Routes.slice(0, 6);
+        trimmedURL === trimmedRoute
+          ? (item.isActive = true)
+          : (item.isActive = false);
+      });
+    setData([...data]);
+  } else {
     }
   };
   return (

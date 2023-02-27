@@ -8,21 +8,26 @@ import NotFound from "./NotFound/NotFound";
 import { Box } from "@mui/system";
 import Dashboard from './Dashboard/Dashboard'
 import Employees from './Employees/EmployeesList'
+import EmployeeDetail from "./Employees/EmployeeDetail";
+import Tasks from "./Tasks/Tasks";
 
 const RoutesIndex = (props) => {
-  let token = localStorage.getItem("token");
+    let token = localStorage.getItem("token");
 
-  return (
-      <>
-      <Box sx={{ width: "100%", bgcolor: 'white', }}>
-        <Routes>
-        <Route path="/" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route exact path="/employees" element={<Employees />} />
-        </Routes>
-      </Box>
-    </>
-  );
+    return (
+        <>
+            <Box sx={{ width: "100%", bgcolor: 'white', }}>
+                <Routes>
+                    <Route path="/" element={<Login />} />
+                    <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                    <Route exact path="/employees" element={<Employees />} />
+                    <Route exact path="/employees/detail" element={<EmployeeDetail />} />
+                    <Route exact path="/tasks" element={<Tasks />} />
+
+                </Routes>
+            </Box>
+        </>
+    );
 };
 
 export default RoutesIndex;
