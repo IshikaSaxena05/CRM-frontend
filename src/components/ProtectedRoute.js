@@ -1,29 +1,17 @@
-import React from "react";
-import { Route, Navigate, Routes } from "react-router-dom";
+import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
+import cogoToast from "cogo-toast";
 
-function ProtectedRoute({ component: Component, ...rest }) {
-  const isAuth = localStorage.getItem("token") ? true : false;
-
-  return (
-    <>
-    <Routes>
-    <Route
-      {...rest}
-      render={(props) => {
-        if (isAuth) {
-          return <Component />;
-        } else {
-          return (
-            <Navigate
-              to={{ pathname: "/login", state: { from: props.location } }}
-            />
-          );
-        }
-      }}
-    />
-    </Routes>
-    </>
-  );
-}
+const ProtectedRoute = ({ children }) => {
+  const acc_Token = localStorage.getItem("user");
+  if (acc_Token) {
+  } else {
+    setTimeout(() => {
+      cogoToast.error("Please Log in first");
+    }, 500);
+    return <Navigate to="/" replace />;
+  }
+  return children;
+};
 
 export default ProtectedRoute;

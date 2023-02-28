@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { connect } from "react-redux";
 import * as Yup from "yup";
 import axios from "axios";
 import cogoToast from "cogo-toast";
@@ -11,15 +12,8 @@ import HomeNav from "../HomeNav";
 import Footer from "../Footer";
 import TextError from "./TextError";
 import { Typography } from "@mui/material";
-
-// const SERVER_URL = "https://sridharrajaram-crmapp.herokuapp.com";
-const SERVER_URL = "http://localhost:5000";
-
-const server = axios.create({
-  baseURL: SERVER_URL,
-});
-
-const Login=() =>{
+import { getLogin } from "../../redux/action/login/index"
+const Login = ({ getLogin }) => {
   const navigate = useNavigate();
 
   const style = {
@@ -38,11 +32,15 @@ const Login=() =>{
 
   const onSubmit = async (values, { resetForm }) => {
     try {
-      const response = await server.post("/api/auth/login", values);
-      localStorage.setItem("user", response.data.user);
-      localStorage.setItem("token", response.data.token);
-      cogoToast.success("Login Successful!");
-      navigate("/dashboard");
+      getLogin(values).then((res) => {
+        if (res.data.status) {
+          localStorage.setItem("role", res.data.role);
+          localStorage.setItem("user",res.data.user);
+          localStorage.setItem("token", res.data.token);
+          cogoToast.success("Login Successful!");
+          navigate("/dashboard");
+        }
+      })
     } catch (error) {
       cogoToast.error(error.response.data.message);
       console.log(error);
@@ -159,4 +157,9 @@ const Login=() =>{
   );
 }
 
-export default Login;
+function mapDispatchToProps(dispatch) {
+  return {
+    getLogin: (item) => dispatch(getLogin(item)),
+  };
+}
+export default connect(null, mapDispatchToProps)(Login);

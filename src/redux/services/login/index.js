@@ -1,7 +1,7 @@
-import { Api } from "../../../config/request";
+import { Api } from "../../../components/Config/request";
 
 export const requestLogin = async (data) => {
-  return Api.PostRequest("/user/login", data);
+  return Api.apiRequest("/api/auth/login", data);
 };
 
 const LoginApi = {
