@@ -1,9 +1,18 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material'
 import { borderRadius, Box, height } from '@mui/system'
-import React, { useState } from 'react'
-
-const Tasks = () => {
+import React, { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
+import { getTasksList } from '../../redux/action/Tasks/Tasks'
+const Tasks = ({getTasksList}) => {
   const [open,setOpen] = useState()
+  useEffect(() => {
+    // getTasksList().then(()=>{
+    //   if(resizeBy.data.status){
+    //     console.log(res);
+    //   }
+    // })
+  }, [])
+  
   return (
     <Box sx={{
       display: 'flex',
@@ -99,8 +108,12 @@ const Tasks = () => {
     </Box>
   )
 }
-
-export default Tasks
+function mapDispatchToProps(dispatch) {
+  return {
+    getTasksList: (item) => dispatch(getTasksList(item)),
+  };
+}
+export default connect(null, mapDispatchToProps)(Tasks);
 const column = [
   {
     title: 'To Do'

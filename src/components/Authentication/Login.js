@@ -34,7 +34,8 @@ const Login = ({ getLogin }) => {
     try {
       getLogin(values).then((res) => {
         if (res.data.status) {
-          localStorage.setItem("user", res.data.user);
+          localStorage.setItem("role", res.data.role);
+          localStorage.setItem("user",res.data.user);
           localStorage.setItem("token", res.data.token);
           cogoToast.success("Login Successful!");
           navigate("/dashboard");

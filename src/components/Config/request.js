@@ -41,16 +41,16 @@ export const apiRequest = async (
 };
 
 
-export const PostRequest = async (url, data,contentTypeJson=false) => {
+export const PostRequest = async (url, data,contentTypeJson=true) => {
   if(data)
   try {
     const res = await axios({
       url: API_URL + url,
       method: "POST",
       data,
-      // body:JSON.stringify(data),
+      body:JSON.stringify(data),
       headers: {
-        "Content-Type": `${contentTypeJson} === 'application/json': 'multipart/form-data'`,
+        // "Content-Type": `${contentTypeJson} === 'application/json': 'multipart/form-data'`,
         Accept: "application/json",
         Authorization:"Bearer "+ localStorage.getItem("token"),
       },
