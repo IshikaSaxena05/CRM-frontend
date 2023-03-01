@@ -38,12 +38,12 @@ function Dashboard() {
               sx={{
                 width: "100%",
                 display: "flex",
-                justifyContent: "center",
+                // justifyContent: "center",
                 fontSize: "30px",
                 fontWeight: 700,
                 pt: 2,
               }}>
-              {greet},
+              {greet}
             </Typography>
             <Typography
               sx={{
@@ -55,6 +55,9 @@ function Dashboard() {
               }}>
               {user}
             </Typography>
+            <Typography sx={{ width: "100%", minHeight: "100px", p: "20px", fontWeight: "500", fontFamily: "cursive" }}>
+              Notice: Here is to inform you that on March 8, there will be a full day off in occassion of the holiday of Holi.
+            </Typography>
             <Box
               sx={{
                 display: "flex",
@@ -64,12 +67,12 @@ function Dashboard() {
               <Card
                 variant="outlined"
                 sx={{
-                  border: "2px solid black",
-                  width: "48%",
+                  // border: "2px solid black",
+                  width: "32%",
                 }}>
                 <CardContent>
-                  <Typography sx={{ fontSize: 30 }} color="text.secondary" gutterBottom>
-                    Today's Tasks
+                  <Typography sx={{ fontSize: 30, fontWeight: "600" }} color="text.secondary" gutterBottom>
+                    Notifications
                   </Typography>
                   <Typography variant="h5" component="div"></Typography>
                   <Box
@@ -82,15 +85,17 @@ function Dashboard() {
                       <Card
                         variant="outlined"
                         sx={{
-                          bgcolor: "#1f6abf",
-                          color: "white",
+                          // bgcolor: "#1f6abf",
+                          color: "#1f6abf",
+                          border: "none",
+
                           mb: 2,
                         }}>
                         <CardContent>
                           <Typography
                             sx={{
                               fontSize: 14,
-                              color: "white",
+                              color: "#000000",
                             }}
                             color="text.secondary"
                             gutterBottom>
@@ -110,12 +115,12 @@ function Dashboard() {
               <Card
                 variant="outlined"
                 sx={{
-                  border: "2px solid black",
-                  width: "48%",
+                  // border: "2px solid black",
+                  width: "32%",
                 }}>
                 <CardContent>
-                  <Typography sx={{ fontSize: 30 }} color="text.secondary" gutterBottom>
-                    Notifications
+                  <Typography sx={{ fontSize: 30, fontWeight: "600" }} color="text.secondary" gutterBottom>
+                    To do
                   </Typography>
                   <Typography variant="h5" component="div"></Typography>
                   <Box
@@ -128,15 +133,64 @@ function Dashboard() {
                       <Card
                         variant="outlined"
                         sx={{
-                          bgcolor: "#1f6abf",
-                          color: "white",
+                          // bgcolor: "",
+                          border: "none",
+
+                          color: "#1f6abf",
                           mb: 2,
                         }}>
                         <CardContent>
                           <Typography
                             sx={{
                               fontSize: 14,
-                              color: "white",
+                              color: "#000000",
+                            }}
+                            color="text.secondary"
+                            gutterBottom>
+                            {work.title}
+                          </Typography>
+                          <ul>
+                            {work.tasks.map((task) => (
+                              <li>{task.name}</li>
+                            ))}
+                          </ul>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </Box>
+                </CardContent>
+              </Card>
+              <Card
+                variant="outlined"
+                sx={{
+                  // border: "2px solid black",
+                  width: "32%",
+                }}>
+                <CardContent>
+                  <Typography sx={{ fontSize: 30, fontWeight: "600" }} color="text.secondary" gutterBottom>
+                    Weekly Report
+                  </Typography>
+                  <Typography variant="h5" component="div"></Typography>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "space-between",
+                    }}>
+                    {tasks.map((work) => (
+                      <Card
+                        variant="outlined"
+                        sx={{
+                          // bgcolor: "",
+                          border: "none",
+                          color: "#1f6abf",
+                          mb: 2,
+                        }}>
+                        <CardContent>
+                          <Typography
+                            sx={{
+                              fontSize: 14,
+                              color: "#000000",
                             }}
                             color="text.secondary"
                             gutterBottom>
