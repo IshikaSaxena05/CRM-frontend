@@ -24,12 +24,22 @@ export const requestsaveEmployee = async (data) => {
   console.log(data);
   return Api.PostRequest("/api/users/createuser", data);
 };
+export const requestdeleteTask = async (data) => {
+  console.log(data);
+  return Api.PostRequest("/api/tasks/delete", data);
+};
+export const requestEditTask = async (data) => {
+  console.log(data);
+  return Api.PostRequest("/api/tasks/getTask", data);
+};
 const EmployeesApi = {
     requestemployees,
     requestemployeesDetails,
     requestTaskList,
     requestAddtask,
     requestgetemployeedata,
-    requestsaveEmployee
+    requestsaveEmployee,
+    requestdeleteTask,
+    requestEditTask
 };
 export default EmployeesApi;

@@ -104,3 +104,35 @@ export const LogInAdmin = () => {
     } catch (err) {
     }
   };
+  export const deleteTask = (data) => async (dispatch) => {
+    try {
+      let response = await EmployeesApi.requestdeleteTask(data);
+      if (response?.data) {
+        dispatch(LogInAdmin(response?.data));
+        // toast.success(response?.data?.message)
+        // storage.set.authToken(response?.data?.token)
+        return response;
+      } else {
+        // response?.data?.errors?.map((item) => {
+        //   return toast.error(item);
+        // });
+      }
+    } catch (err) {
+    }
+  };
+  export const EditTask = (data) => async (dispatch) => {
+    try {
+      let response = await EmployeesApi.requestEditTask(data);
+      if (response?.data) {
+        dispatch(LogInAdmin(response?.data));
+        // toast.success(response?.data?.message)
+        // storage.set.authToken(response?.data?.token)
+        return response;
+      } else {
+        // response?.data?.errors?.map((item) => {
+        //   return toast.error(item);
+        // });
+      }
+    } catch (err) {
+    }
+  };
