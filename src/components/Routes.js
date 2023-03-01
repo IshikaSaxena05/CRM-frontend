@@ -6,34 +6,36 @@ import Login from "./Authentication/Login";
 import ProtectedRoute from "./ProtectedRoute";
 import NotFound from "./NotFound/NotFound";
 import { Box } from "@mui/system";
-import Dashboard from './Dashboard/Dashboard'
-import Employees from './Employees/EmployeesList'
+import Dashboard from "./Dashboard/Dashboard";
+import Employees from "./Employees/EmployeesList";
 import EmployeeDetail from "./Employees/EmployeeDetail";
 import Tasks from "./Tasks/Tasks";
 import AdminEmployeesList from "./Employees/AdminEmployeesList";
 import AddEmployee from "./Employees/AddEmployee";
+import ClosedProjectListing from "./ClosedProjects/ClosedProjectListing";
 
 const RoutesIndex = (props) => {
-    let token = localStorage.getItem("token");
+  let token = localStorage.getItem("token");
 
-    return (
-        <>
-            <Box sx={{ width: "100%", bgcolor: 'white', }}>
-                <Routes>
-                    <Route path="/" element={<Login />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    {localStorage.getItem("role") === "Admin"
-                        ? <Route exact path="/employees" element={<AdminEmployeesList />} />
-                        : <Route exact path="/employees" element={<Employees />} />
-                    }
-                    <Route exact path="/employees/detail" element={<EmployeeDetail />} />
-                    <Route exact path="/tasks" element={<Tasks />} />
-                    <Route exact path="/employees/addnew" element={<AddEmployee />} />
-
-                </Routes>
-            </Box>
-        </>
-    );
+  return (
+    <>
+      <Box sx={{ width: "100%", bgcolor: "white" }}>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          {localStorage.getItem("role") === "Admin" ? (
+            <Route exact path="/employees" element={<AdminEmployeesList />} />
+          ) : (
+            <Route exact path="/employees" element={<Employees />} />
+          )}
+          <Route exact path="/employees/detail" element={<EmployeeDetail />} />
+          <Route exact path="/tasks" element={<Tasks />} />
+          <Route exact path="/employees/addnew" element={<AddEmployee />} />
+          <Route exact path="/closedprojects" element={<ClosedProjectListing />} />
+        </Routes>
+      </Box>
+    </>
+  );
 };
 
 export default RoutesIndex;

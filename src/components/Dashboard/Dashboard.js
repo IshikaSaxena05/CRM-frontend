@@ -55,7 +55,7 @@ function Dashboard() {
               }}>
               {user}
             </Typography>
-            <Typography sx={{ width: "100%", minHeight: "100px", p: "20px", fontWeight: "500" }}>
+            <Typography sx={{ width: "100%", minHeight: "100px", p: "20px", fontWeight: "500", fontFamily: "cursive" }}>
               Notice: Here is to inform you that on March 8, there will be a full day off in occassion of the holiday of Holi.
             </Typography>
             <Box
