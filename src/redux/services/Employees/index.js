@@ -22,7 +22,7 @@ export const requestgetemployeedata = async (data) => {
 };
 export const requestsaveEmployee = async (data) => {
   console.log(data);
-  return Api.PostRequest("/api/users/createuser", data);
+  return Api.PostRequest("/api/auth/createuser", data);
 };
 export const requestdeleteTask = async (data) => {
   console.log(data);

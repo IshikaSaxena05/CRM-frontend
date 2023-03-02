@@ -7,9 +7,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Box, Button, Typography } from "@mui/material";
-import { ProjectList,reopenProject,viewProject } from "../../redux/action/closedProject/index"
+import { ProjectList,closeProject } from "../../redux/action/ongoingProjects/index"
 import { connect } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 function createData(Project_Name, Technology, Delivery, Type) {
   return { Project_Name, Technology, Delivery, Type };
@@ -23,14 +22,13 @@ const rows = [
   createData("Lifestyle clinic", "Laravel", "Dec 2023", "Web"),
 ];
 
- function ClosedProjectListing({ProjectList,reopenProject,viewProject}) {
+ function OngoingProjectList({ProjectList,closeProject}) {
   const [pages, setPages] = React.useState(0);
   const [page, setPage] = React.useState(1);
   const [start, setStart] = React.useState(0);
   const [rows, setRows] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [empty , setEmpty] = React.useState(false)
-  const navigate = useNavigate()
   let length = 2;
   let data = {
       page: page,
@@ -62,31 +60,20 @@ const getProjectList = () => {
   });
 };
 const handleReopen = (id) =>{
-  let data = {
-   project_id:id,
-   status:"ongoing"
-  }
-  reopenProject(data).then((res)=>{
-    if(res.data.status){
-      getProjectList()
+    let data = {
+     project_id:id,
+     status:"completed"
     }
-  })
-}
-
-const handleview = (id) =>{
-  let data = {
-   project_id:id,
+    closeProject(data).then((res)=>{
+        if(res.data.status){
+            getProjectList()
+          }
+    })
   }
-  viewProject(data).then((res)=>{
-    if(res.data.status){
-      getProjectList()
-    }
-  })
-}
   return (
     <>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Typography sx={{ fontSize: "30px", fontWeight: "600", pt: 5, pb: 5 }}>Completed Projects List</Typography>
+        <Typography sx={{ fontSize: "30px", fontWeight: "600", pt: 5, pb: 5 }}>Ongoing Projects List</Typography>
       </Box>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -121,11 +108,7 @@ const handleview = (id) =>{
                 <TableCell align="center">
                     <Button
                     onClick={()=>handleReopen(row._id)}>
-                        Reopen
-                    </Button>
-                    <Button
-                    onClick={()=>navigate('/closedprojects/view',{state:row._id})}>
-                        View
+                        Close
                     </Button>
                     </TableCell>
               </TableRow>
@@ -139,10 +122,8 @@ const handleview = (id) =>{
 const mapDispatchToProps = (dispatch) => {
   return {
     ProjectList: (data) => dispatch(ProjectList(data)),
-    reopenProject: (data) => dispatch(reopenProject(data)),
-    viewProject: (data) => dispatch(viewProject(data)),
-
+    closeProject: (data) => dispatch(closeProject(data)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(ClosedProjectListing);
+export default connect(null, mapDispatchToProps)(OngoingProjectList);

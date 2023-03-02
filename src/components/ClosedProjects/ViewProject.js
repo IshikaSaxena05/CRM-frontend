@@ -7,30 +7,23 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Box, Button, Typography } from "@mui/material";
-import { ProjectList,reopenProject,viewProject } from "../../redux/action/closedProject/index"
+import { reopenProject,viewProject,getMilestone } from "../../redux/action/closedProject/index"
 import { connect } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 function createData(Project_Name, Technology, Delivery, Type) {
   return { Project_Name, Technology, Delivery, Type };
 }
 
-const rows = [
-  createData("Ball & Dogget", "PHP", "Jan 2023", "App & Web"),
-  createData("School lunch", "PHP", "Dec 2022", "Web"),
-  createData("Vformity", "Laravel & Flutter", "July 2022", "App & Web"),
-  createData("Gopher", "React & Laravel", "Feb 2023", "Web"),
-  createData("Lifestyle clinic", "Laravel", "Dec 2023", "Web"),
-];
-
- function ClosedProjectListing({ProjectList,reopenProject,viewProject}) {
+ function ClosedProjectListing({reopenProject,viewProject,getMilestone}) {
   const [pages, setPages] = React.useState(0);
   const [page, setPage] = React.useState(1);
   const [start, setStart] = React.useState(0);
   const [rows, setRows] = React.useState([]);
+  const [proj_data, setProj_data] = React.useState({});
   const [loading, setLoading] = React.useState(true);
   const [empty , setEmpty] = React.useState(false)
-  const navigate = useNavigate()
+  const location = useLocation()
   let length = 2;
   let data = {
       page: page,
@@ -40,27 +33,9 @@ const rows = [
   };
   React.useEffect(() => {
     window.scrollTo(0, 0);
-    getProjectList();
+    handleview();
 }, []);
-const getProjectList = () => {
-  ProjectList(data).then((res) => {
-      setLoading(false);
-      //   if (res?.data?.data?.total_records === 0) {
-      //     setRows(res.data.data.orders_list);
-      //     setPages(1);
-      //     setEmpty(true);
-      //     setLoading(false);
-      //   }
-      if (res.data.status) {
-          setEmpty(false);
-          setPages(res.data.pages);
-          setRows(res.data.ProjectList);
-          setLoading(false);
-      } else {
-          setLoading(false);
-      }
-  });
-};
+
 const handleReopen = (id) =>{
   let data = {
    project_id:id,
@@ -68,26 +43,37 @@ const handleReopen = (id) =>{
   }
   reopenProject(data).then((res)=>{
     if(res.data.status){
-      getProjectList()
+        handleview()
     }
   })
 }
 
-const handleview = (id) =>{
+const handleview = () =>{
   let data = {
-   project_id:id,
+   project_id:location.state,
   }
   viewProject(data).then((res)=>{
     if(res.data.status){
-      getProjectList()
+        setProj_data(res.data.project)
     }
+    
+  })
+  getMilestone(data).then((res)=>{
+    if(res.data.status){
+        setRows(res.data.Milestone)
+    }
+    
   })
 }
   return (
     <>
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Typography sx={{ fontSize: "30px", fontWeight: "600", pt: 5, pb: 5 }}>Completed Projects List</Typography>
-      </Box>
+     <Box sx={{
+        display:'flex',
+        width:'100%'
+     }}>
+        <Typography>name:</Typography>
+        <Typography>{proj_data.name}</Typography>
+     </Box>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -105,11 +91,11 @@ const handleview = (id) =>{
               <TableCell sx={{ color: "white" }} align="center">
                 Action
               </TableCell>
-              {/* <TableCell align="right">Protein&nbsp;(g)</TableCell> */}
+               {/* <TableCell align="right">Protein&nbsp;(g)</TableCell>  */}
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {/* {rows.map((row) => (
               <TableRow key={row.name} sx={{ "&:last-child td, &:last-child th": { border: 0 }, height: "120px" }}>
                 <TableCell component="th" scope="row">
                   {row.name}
@@ -124,23 +110,23 @@ const handleview = (id) =>{
                         Reopen
                     </Button>
                     <Button
-                    onClick={()=>navigate('/closedprojects/view',{state:row._id})}>
+                    onClick={()=>handleview(row._id)}>
                         View
                     </Button>
                     </TableCell>
               </TableRow>
-            ))}
+            ))} */}
           </TableBody>
         </Table>
-      </TableContainer>
+      </TableContainer> 
     </>
   );
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    ProjectList: (data) => dispatch(ProjectList(data)),
-    reopenProject: (data) => dispatch(reopenProject(data)),
     viewProject: (data) => dispatch(viewProject(data)),
+    reopenProject: (data) => dispatch(reopenProject(data)),
+    getMilestone: (data) => dispatch(getMilestone(data)),
 
   };
 };

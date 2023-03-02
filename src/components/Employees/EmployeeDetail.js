@@ -86,7 +86,7 @@ const EmployeeDetail = ({ employeesDetails, Addtask, taskList, deleteTask, EditT
     Addtask(value).then((res) => {
       if (res.data.status) {
         setOpen(false)
-        setData("")
+        setData({})
         tasksList()
       }
     })

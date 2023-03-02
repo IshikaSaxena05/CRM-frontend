@@ -13,6 +13,8 @@ import Tasks from "./Tasks/Tasks";
 import AdminEmployeesList from "./Employees/AdminEmployeesList";
 import AddEmployee from "./Employees/AddEmployee";
 import ClosedProjectListing from "./ClosedProjects/ClosedProjectListing";
+import OngoingProjectList from "./OngoingProjects.js/OngoingProjectList";
+import ViewProject from "./ClosedProjects/ViewProject";
 
 const RoutesIndex = (props) => {
   let token = localStorage.getItem("token");
@@ -31,7 +33,9 @@ const RoutesIndex = (props) => {
           <Route exact path="/employees/detail" element={<EmployeeDetail />} />
           <Route exact path="/tasks" element={<Tasks />} />
           <Route exact path="/employees/addnew" element={<AddEmployee />} />
+          <Route exact path="/closedprojects/view" element={<ViewProject />} />
           <Route exact path="/closedprojects" element={<ClosedProjectListing />} />
+          <Route exact path="/ongoingprojects" element={<OngoingProjectList />} />
         </Routes>
       </Box>
     </>

@@ -21,32 +21,23 @@ import {
 import { useNavigate } from "react-router-dom";
 import { getemployeedata, saveEmployee } from "../../redux/action/Employees";
 const schema = yup.object().shape({
-  first_name: yup.string().required("Please enter your first name"),
-  last_name: yup.string().required("Please enter your last name"),
+  firstName: yup.string().required("Please enter your first name"),
+  lastName: yup.string().required("Please enter your last name"),
   email: yup
     .string()
     .required("Please enter your email")
     .email("Please enter valid email"),
-  wedding_date: yup.string().required("Please enter your Wedding date"),
-  phone: yup.string().required("Please enter your Phone Number")
-    .matches(/^[0-9]*$/, "Please enter valid phone number"),
+    designation: yup.string().required("Please enter your Wedding date"),
   dob: yup.string().required("Please enter your Date of birth"),
-  validate_Password: yup.boolean(),
-  password: yup.string().when("validate_Password", {
-    is: true,
-    then: yup
+  password: yup
       .string()
       .required("Please enter your password.")
       .min(8, "Password is too short - should be 8 chars minimum."),
-  }),
-  confirm_password: yup.string().when("validate_Password", {
-    is: true,
-    then: yup
+    confirm_password: yup
       .string()
       .required("Confirm your password.")
       .min(8, "Password is too short - should be 8 chars minimum.")
       .oneOf([yup.ref("password"), null], "Passwords must match"),
-  }),
 });
 
 const AddEmployee = ({ getemployeedata, saveEmployee }) => {
@@ -54,7 +45,7 @@ const AddEmployee = ({ getemployeedata, saveEmployee }) => {
   const [userData, setUserData] = useState({
   });
   const [gender, setGender] = useState("")
-  const [radioButton, setRadioButton] = useState("")
+  const [radioButton, setRadioButton] = useState("Admin")
   const navigate = useNavigate();
   //   let id = { users_id: users_id };
   const editUser = () => {
@@ -84,6 +75,7 @@ const AddEmployee = ({ getemployeedata, saveEmployee }) => {
   const onSubmit = (value) => {
     setLoading(true);
     // Object.assign(value, id);
+    Object.assign(value,{role:radioButton})
     saveEmployee(value).then((res) => {
       setLoading(false);
       if (res.data.status) {
@@ -122,8 +114,8 @@ const AddEmployee = ({ getemployeedata, saveEmployee }) => {
               </FormLabel>
 
               <TextField
-                name="first_name"
-                value={formik.values.first_name}
+                name="firstName"
+                value={formik.values.firstName}
                 onChange={formik.handleChange}
                 type="text"
                 variant="filled"
@@ -142,8 +134,8 @@ const AddEmployee = ({ getemployeedata, saveEmployee }) => {
                 }}
                 autoComplete="false"
               />
-              {formik.errors.first_name && formik.touched.first_name ? (
-                <p style={Style.validationStyle}>{formik.errors.first_name}</p>
+              {formik.errors.firstName && formik.touched.firstName ? (
+                <p style={Style.validationStyle}>{formik.errors.firstName}</p>
               ) : null}
             </Box>
           )}
@@ -158,9 +150,9 @@ const AddEmployee = ({ getemployeedata, saveEmployee }) => {
               </FormLabel>
 
               <TextField
-                name="last_name"
-                value={formik.values.last_name}
-                id="last_name"
+                name="lastName"
+                value={formik.values.lastName}
+                id="lastName"
                 onChange={formik.handleChange}
                 type="text"
                 variant="filled"
@@ -179,8 +171,8 @@ const AddEmployee = ({ getemployeedata, saveEmployee }) => {
                   border: "none",
                 }}
               />
-              {formik.errors.last_name && formik.touched.last_name ? (
-                <p style={Style.validationStyle}>{formik.errors.last_name}</p>
+              {formik.errors.lastName && formik.touched.lastName ? (
+                <p style={Style.validationStyle}>{formik.errors.lastName}</p>
               ) : null}
             </Box>
           )}
@@ -371,10 +363,10 @@ const AddEmployee = ({ getemployeedata, saveEmployee }) => {
         </Box>
         <Box sx={{ mt: "10px", mb: "10px" }}>
           <Radio
-            checked={radioButton == 0 ? true : false}
+            checked={radioButton == "Admin" ? true : false}
             onChange={handleToggle}
-            placeholder="None"
-            value={0}
+            placeholder="Admin"
+            value='Admin'
             name="radio-buttons"
             sx={{
               pr: { xs: "5px", sm: "12px" },
@@ -386,11 +378,11 @@ const AddEmployee = ({ getemployeedata, saveEmployee }) => {
           />
           <label>Admin</label>
           <Radio
-            placeholder="Email"
-            checked={radioButton == 1 ? true : false}
+            placeholder="Employee"
+            checked={radioButton == "Employee" ? true : false}
             onChange={handleToggle}
             sx={{ p: { xs: "5px", sm: "12px" } }}
-            value={1}
+            value="Employee"
             name="radio-buttons"
             inputProps={{ "aria-label": "Email" }}
           />
@@ -537,7 +529,7 @@ const AddEmployee = ({ getemployeedata, saveEmployee }) => {
           variant="outlined"
           className="btn"
           onClick={() => {
-            navigate("/Users");
+            navigate("/employees");
           }}
         >
           Cancel

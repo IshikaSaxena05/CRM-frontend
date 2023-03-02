@@ -33,7 +33,9 @@ export const EnhancedTableHead = ({
 
   return (
     <TableHead>
-      <TableRow>
+      <TableRow sx={{
+        bgcolor: "#1f6abf",
+      }}>
         {!checkbox && (
           <TableCell style={Style.tableHeaderCheckBox}>
             <Checkbox
@@ -56,35 +58,35 @@ export const EnhancedTableHead = ({
             style={
               (location.pathname === "/e-giftcards" ||
                 location.pathname === "/giftcards") &&
-              headCell.id === "Title"
+                headCell.id === "Title"
                 ? Style.tableHeaderTitle
                 : location.pathname === "/greeting/categories" && headCell.id === "Title"
-                ? Style.tableHeadertitle
-                : Style.tableHeader
+                  ? Style.tableHeadertitle
+                  : Style.tableHeader
             }
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             {headCell.label}
             {headCell.id !== "none" && headCell.id !== "Action" && headCell.id !== "Image" &&
-            headCell.id !== "Video"&&headCell.id !== "Status"&& headCell.id !== "Declined Reason"&&
-            headCell.id !== "If Declined tell us why?" &&(
-              <TableSortLabel
-                active={orderBy === headCell.id}
-                direction={orderBy === headCell.id ? order : "asc"}
-                onClick={createSortHandler(
-                  headCell.id === "Item" ? "none" : headCell.id
-                )}
-              >
-                {orderBy === headCell.id ? (
-                  <Box component="span" sx={visuallyHidden}>
-                    {order === "desc"
-                      ? "sorted descending"
-                      : "sorted ascending"}
-                  </Box>
-                ) : null}
-              </TableSortLabel>
-            )}
+              headCell.id !== "Video" && headCell.id !== "Status" && headCell.id !== "Declined Reason" &&
+              headCell.id !== "If Declined tell us why?" && (
+                <TableSortLabel
+                  active={orderBy === headCell.id}
+                  direction={orderBy === headCell.id ? order : "asc"}
+                  onClick={createSortHandler(
+                    headCell.id === "Item" ? "none" : headCell.id
+                  )}
+                >
+                  {orderBy === headCell.id ? (
+                    <Box component="span" sx={visuallyHidden}>
+                      {order === "desc"
+                        ? "sorted descending"
+                        : "sorted ascending"}
+                    </Box>
+                  ) : null}
+                </TableSortLabel>
+              )}
           </TableCell>
         ))}
       </TableRow>
@@ -95,20 +97,17 @@ export const EnhancedTableHead = ({
 const Style = {
   tableHeader: {
     lineHeight: "22px",
-    color: "#333333",
-    borderBottom: "2px solid #FF8D2A",
     borderRadius: "2px",
     paddingTop: 0,
     paddingBottom: 10,
     paddingLeft: "16px",
     fontSize: "18px",
     fontWeight: 400,
-    maxWidth:'100px'
+    color: "white",
+    maxWidth: '100px'
   },
   tableHeadertitle: {
     lineHeight: "22px",
-    color: "#333333",
-    borderBottom: "2px solid #FF8D2A",
     borderRadius: "2px",
     paddingTop: 0,
     fontSize: "18px",
@@ -116,8 +115,6 @@ const Style = {
   },
   tableHeaderTitle: {
     lineHeight: "22px",
-    color: "#333333",
-    borderBottom: "2px solid #FF8D2A",
     borderRadius: "2px",
     paddingTop: 0,
     width: "35%",
@@ -127,9 +124,7 @@ const Style = {
 
   tableHeaderCheckBox: {
     lineHeight: "22px",
-    color: "#333333",
     width: "40px",
-    borderBottom: "2px solid #FF8D2A",
     borderRadius: "2px",
     paddingTop: 0,
     paddingLeft: "16px",
